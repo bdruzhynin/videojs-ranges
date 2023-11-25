@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>videojs-ranges Demo</title>
+  <link href="node_modules/video.js/dist/video-js.css" rel="stylesheet">
+  <link href="dist/videojs-ranges.css" rel="stylesheet">
+</head>
+
+<body>
+  <video id="videojs-ranges-player" class="video-js vjs-default-skin" controls>
+    <source src="//vjs.zencdn.net/v/oceans.mp4" type='video/mp4'>
+    <source src="//vjs.zencdn.net/v/oceans.webm" type='video/webm'>
+  </video>
+  <ul>
+    <li><a href="/test/debug.html">Run unit tests in browser.</a></li>
+    <li><a href="docs/api/">Read generated docs.</a></li>
+  </ul>
+  <script src="node_modules/video.js/dist/video.js"></script>
+  <script src="dist/videojs-ranges.js"></script>
+  <script>
+    (function (window, videojs) {
+      var examplePlayer = window.examplePlayer = videojs('videojs-ranges-player');
+      try {examplePlayer.volume(0);} catch (e) { }
+      var ranges = window.ranges = examplePlayer.ranges({
+        ranges: [{
+          name: 'First',
+          start: 1,
+          end: 15,
+          color: 'red',
+          editable: false,
+        },
+        {
+          name: 'Third',
+          start: 18,
+          end: 25,
+          color: 'blue',
+          editable: true,
+        },
+        {
+          name: 'Third',
+          start: 26,
+          end: 31,
+          color: 'yellow',
+          editable: true,
+        },
+        {
+          name: 'Third',
+          start: 32,
+          end: 43,
+          color: 'magenta',
+          editable: true,
+        },]
+      });
+    }(window, window.videojs));
+  </script>
+</body>
+
+</html>

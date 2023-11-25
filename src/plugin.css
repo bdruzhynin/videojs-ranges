@@ -1,0 +1,189 @@
+/**
+ * css for videojs-ranges
+ * With the default plugins for postcss you can
+ * - @import files, they will be inlined during build
+ * - not worry about browser prefixes, they will be handled
+ * - nest selectors. This follows the css specification that is
+ *   currently out on some browsers. See https://tabatkins.github.io/specs/css-nesting/
+ * - custom properties (aka variables) via the var(--var-name) syntax. See
+ *   https://www.w3.org/TR/css-variables-1/
+ */
+
+
+/* Note: all vars must be defined here, there are no "local" vars */
+:root {
+  --main-color: red;
+  --base-font-size: 9;
+  --font-size: 7;
+}
+
+.video-js {
+
+  &.vjs-ranges {
+    /* This class is added to the video.js element by the plugin by default. */
+    display: block;
+
+    & .remove-me,
+    & .remove-me-too,
+    &.finally-remove-me {
+      /* examples of postcss syntax, you probably want to remove this */
+
+      color: var(--main-color);
+
+      /**
+       * Note that you have to use calc and multiply by a value with a unit
+       * prepending the unit like `var(--base-font-size)px` or
+       * `calc(10 * var(--base-font-size)em` will NOT work!
+       */
+      font-size: calc(var(--font-size) * 8 * var(--base-font-size) * 1px);
+
+    }
+  }
+
+  .vr-control-wrapper {
+    color: red;
+    top: -1em;
+    height: 100%;
+    position: relative;
+    background: rgba(100, 100, 100, .5);
+    outline: none;
+
+    &.bar-hover {
+      font-size: 15px;
+      height: 1.5em;
+      top: -1.5em;
+
+      .vr-range {
+        .vr-range-controll {
+
+          &-start,
+          &-end {
+            height: 1.3em;
+
+            &:after {
+              font-size: 1em !important;
+            }
+          }
+        }
+
+        .vr-range-tip {
+
+          &-start,
+          &-end {
+            display: block;
+            font-size: 0.5em;
+            visibility: visible;
+            top: -3.5em;
+          }
+        }
+
+        .vr-range-text-name {
+          font-size: 0.8em;
+          visibility: visible;
+        }
+      }
+    }
+
+    .vr-range {
+      height: 100%;
+      position: absolute;
+      top: 0;
+      background-size: 100%;
+      background-repeat: no-repeat;
+      z-index: 0;
+      cursor: move;
+
+      &:hover {
+        z-index: 10;
+      }
+
+      .vr-range-controll {
+
+        &-start,
+        &-end {
+          position: absolute;
+          width: 0.2em;
+          height: 0.55em;
+          bottom: 0;
+          background-color: inherit;
+          cursor: ew-resize;
+          z-index: 1;
+        }
+
+        &-start {
+          left: 0%;
+        }
+
+        &-end {
+          right: 0%;
+        }
+      }
+
+      .vr-range-tip {
+
+        &-start,
+        &-end {
+          position: absolute;
+          border: 1px solid;
+          border-color: inherit;
+          background-color: rgba(255, 255, 255, 0.8);
+          border-radius: 0.3em;
+          color: #000;
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 1em;
+          padding: 3px 4px;
+          pointer-events: none;
+          position: absolute;
+          top: -4.1em;
+          visibility: hidden;
+          z-index: 1;
+
+          .video-js .vjs-progress-control:hover & {
+            display: block;
+            font-size: 0.5em;
+            visibility: visible;
+          }
+        }
+
+        &-start {
+          left: 0%;
+          transform: translateX(-50%)
+        }
+
+        &-end {
+          right: 0%;
+          transform: translateX(50%)
+        }
+      }
+
+      .vr-range-text-name {
+        position: absolute;
+        line-height: 1em;
+        left: 50%;
+        top: 50%;
+        border-color: inherit;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 0.3em;
+        transform: translate(-50%, -50%);
+        color: black;
+        text-shadow: 0px 1px 3px white;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        visibility: hidden;
+
+        &.hidden {
+          display: none;
+        }
+
+        .video-js .vjs-progress-control:hover & {
+          font-size: 0.8em;
+          visibility: visible;
+        }
+      }
+    }
+  }
+}
+
